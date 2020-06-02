@@ -1,5 +1,5 @@
 Welcome to Saliency Detector's documentation!
-======================================
+=============================================
 
 .. toctree::
    :maxdepth: 2
@@ -8,7 +8,6 @@ Welcome to Saliency Detector's documentation!
    readme
    installation
    usage
-   modules
    contributing
    history
 
