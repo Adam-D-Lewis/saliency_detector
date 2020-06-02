@@ -1,0 +1,14 @@
+# conda environment file
+name: saliency_detector
+channels:
+- conda-forge
+- defaults
+dependencies:
+- pip
+- pytorch == 0.4.1
+- torchvision
+- scipy
+- pillow
+- pytest # == 4.6.5
+- pip:
+    - opencv-contrib-python
