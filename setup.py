@@ -5,13 +5,30 @@ import setuptools
 
 from setuptools import setup, find_packages
 
+
+def find_version(fname):
+    """Attempt to find the version number in the file fname.
+    Raises RuntimeError if not found.
+    """
+    version = ""
+    reg = re.compile(r'__version__ = [\'"]([^\'"]*)[\'"]')
+    for line in Path(fname).read_text().split("\n"):
+        m = reg.match(line)
+        if m:
+            version = m.group(1)
+            break
+    if not version:
+        raise RuntimeError("Cannot find version information")
+    return version
+
+
 with open('README.rst') as readme_file:
     readme = readme_file.read()
 
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = ['pytorch',
+requirements = ['torch',
                 'torchvision',
                 'scipy',
                 'pillow',
@@ -19,7 +36,7 @@ requirements = ['pytorch',
 
 setup(
     author="Adam Dudley Lewis",
-    author_email='N/A',
+    author_email='balast@users.noreply.github.com',
     python_requires='>=3.5',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
@@ -43,6 +60,6 @@ setup(
     packages=find_packages(include=['saliency_detector', 'saliency_detector.*']),
     test_suite='tests',
     url='https://github.com/balast/saliency_detector',
-    version='0.1.0',
+    version=find_version('saliency_detector/__init__.py'),
     zip_safe=False,
 )

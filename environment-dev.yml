@@ -10,5 +10,8 @@ dependencies:
 - scipy
 - pillow
 - pytest # == 4.6.5
+# documentation
+- sphinx
+# pip packages
 - pip:
     - opencv-python

@@ -5,7 +5,7 @@ import torch
 from saliency_detector.dataset.joint_dataset import get_loader
 from saliency_detector.joint_solver import Solver
 
-__version__ = "0.0.1"
+__version__ = "0.2.2"
 
 config_attr_defaults = {'cuda': None,
                         'mode': 'test',
