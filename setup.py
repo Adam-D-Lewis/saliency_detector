@@ -1,8 +1,8 @@
 #!/usr/bin/env python
-import setuptools
-
 """The setup script."""
 
+import re
+from pathlib import Path
 from setuptools import setup, find_packages
 
 
