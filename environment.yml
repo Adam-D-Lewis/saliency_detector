@@ -11,4 +11,4 @@ dependencies:
 - pillow
 - pytest # == 4.6.5
 - pip:
-    - opencv-contrib-python
+    - opencv-python

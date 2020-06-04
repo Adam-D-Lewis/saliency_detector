@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import setuptools
 
 """The setup script."""
 
@@ -10,11 +11,11 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = [ ]
-
-setup_requirements = ['pytest-runner', ]
-
-test_requirements = ['pytest>=3', ]
+requirements = ['pytorch',
+                'torchvision',
+                'scipy',
+                'pillow',
+                'opencv-python']
 
 setup(
     author="Adam Dudley Lewis",
@@ -30,6 +31,7 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
+        "Operating System :: OS Independent",
     ],
     description="Pretrained Poolnet Saliency Detector for Inference",
     install_requires=requirements,
@@ -39,9 +41,7 @@ setup(
     keywords='saliency_detector',
     name='saliency_detector',
     packages=find_packages(include=['saliency_detector', 'saliency_detector.*']),
-    setup_requires=setup_requirements,
     test_suite='tests',
-    tests_require=test_requirements,
     url='https://github.com/balast/saliency_detector',
     version='0.1.0',
     zip_safe=False,
