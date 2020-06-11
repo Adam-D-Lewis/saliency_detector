@@ -7,10 +7,9 @@ SaliencyDetector instances are iterator, so you can use them accordingly. E.g.
 .. code-block:: python
 
     from saliency_detector import SaliencyDetector
-    sal_det = SaliencyDetector(image_filepaths)
-    sal_det_iter = iter(sal_det)
-    image = next(sal_det_iter)
-    image2 = next(sal_det_iter)
+    sal_det = SaliencyDetector()
+    result1 = sal_det.solver.predict(img[0])
+    result2 = sal_det.solver.predict(img[1])
 
 . . . etc.
 

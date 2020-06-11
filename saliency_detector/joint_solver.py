@@ -9,6 +9,7 @@ import scipy.misc as sm
 import numpy as np
 import os
 import torchvision.utils as vutils
+from torchvision import transforms
 import cv2
 import math
 import time
@@ -79,12 +80,30 @@ class Solver(object):
         else:
             raise StopIteration
 
-    def predict(self):
+    def _convert_img_to_tensor(self, im): # Tensor of shape (1, 3, h, w)
+        # if not os.path.exists(path):
+        #     print('File {} not exists'.format(path))
+        # im = cv2.imread(str(path))
+        in_ = np.array(im, dtype=np.float32)
+        im_size = tuple(in_.shape[:2])
+        in_ -= np.array((104.00699, 116.66877, 122.67892))
+        in_ = in_.transpose((2, 0, 1))
+        return torch.from_numpy(in_).unsqueeze(0)#, im_size
+
+    def predict(self, img=None, color_space='BGR'):
+        if color_space != 'BGR':
+            # convert to BGR if not already in that format
+            try:
+                img = cv2.cvtColor(img, getattr(cv2, f'{color_space}2BGR'))
+            except AttributeError as e:
+                raise Exception(f'Color space "{color_space}" not recognized.  '
+                                f'Only colorspaces recognized by OpenCV are supported')
         test_mode = self.config.test_mode
         time_s = time.time()
         # img_num = len(self.test_loader)
-        data_batch = next(self.test_loader_it)
-        images, name, im_size = data_batch['image'], data_batch['name'][0], np.asarray(data_batch['size'])
+        # data_batch = next(self.test_loader_it)
+        # images, name, im_size = data_batch['image'], data_batch['name'][0], np.asarray(data_batch['size'])
+        images = self._convert_img_to_tensor(img) # Tensor of shape (1, 3, h, w)
         with torch.no_grad():
             images = Variable(images)
             if self.config.cuda:

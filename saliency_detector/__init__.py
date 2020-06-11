@@ -24,7 +24,7 @@ Config = namedtuple('Config', config_attr_defaults.keys(), defaults=config_attr_
 
 
 class SaliencyDetector():
-    def __init__(self, image_paths, cuda=None):
+    def __init__(self, cuda=None):
         """
 
         Parameters
@@ -37,14 +37,14 @@ class SaliencyDetector():
             # autodetect if gpu is available, if not specified
             cuda = True if torch.cuda.is_available() else False
 
-        image_paths = [Path(image_path) if not isinstance(image_path, Path) else image_path
-                                   for image_path in image_paths]
-        test_list = [image_path.name for image_path in image_paths]
-        self.config = Config(cuda=cuda, mode='test', num_thread=0, image_paths=image_paths, test_list=test_list)
-        test_loader = get_loader(self.config, mode='test')
-        self.config._replace(test_loader=test_loader)
+        # image_paths = [Path(image_path) if not isinstance(image_path, Path) else image_path
+        #                            for image_path in image_paths]
+        # test_list = [image_path.name for image_path in image_paths]
+        self.config = Config(cuda=cuda, mode='test', num_thread=0, image_paths=None, test_list=None)
+        # test_loader = get_loader(self.config, mode='test')
+        # self.config._replace(test_loader=test_loader)
 
-        self.solver = Solver(None, test_loader, self.config)
+        self.solver = Solver(None, test_loader=None, config=self.config)
         # self.solver_iter = iter(self.solver)
 
     def __iter__(self):
